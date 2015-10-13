@@ -5,10 +5,14 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd 
        					http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
 
-       <task:scheduler id="jmetricScheduler" pool-size="15"/>
-       <task:scheduled-tasks scheduler="jmetricScheduler">
-              <task:scheduled ref="xxxExtractorServiceImpl" method="xxx" fixed-rate="600000" initial-delay="60000"/>
-              <task:scheduled ref="xxxCompactorServiceImpl" method="xxx" fixed-rate="600000" initial-delay="30000"/>
-              <task:scheduled ref="xxxAnalyzerServiceImpl" method="xxx" fixed-rate="60000" initial-delay="60000"/>
-       </task:scheduled-tasks>
+		<task:scheduler id="jmetric-scheduler" pool-size="15"/>
+		<task:scheduled-tasks scheduler="jmetric-scheduler">
+			<task:scheduled ref="extractor" method="extract" fixed-rate="5000" initial-delay="2000"/>
+			<task:scheduled ref="compactor" method="compact" cron="5 * * * * ?"/><!-- cron表达式：秒，分，时，日，月，周 -->
+			<!-- <task:scheduled ref="analyze" method="analyze" fixed-rate="60000" initial-delay="60000"/> -->
+		</task:scheduled-tasks>
+		
+		<!-- 下面是使用注解的方式进行任务调度，具体配置见类com.wanlitong.jmetrics.analyzer.Analyzer中的注解 -->
+		<task:scheduler id="another-jmetric-scheduler" pool-size="10" />  
+		<task:annotation-driven scheduler="another-jmetric-scheduler" />  
 </beans>

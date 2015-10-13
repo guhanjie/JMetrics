@@ -13,7 +13,7 @@
 
 	<context:property-placeholder location="classpath:default.properties" ignore-unresolvable="true" ignore-resource-not-found="true" />
 	
-	<import resource="db-mysql.xml"/>
+	<!-- <import resource="db-mysql.xml"/> -->
 	<import resource="classpath:/context/spring-schedule-config.xml" />
     
 	<context:component-scan base-package="com.wanlitong.jmetrics">
