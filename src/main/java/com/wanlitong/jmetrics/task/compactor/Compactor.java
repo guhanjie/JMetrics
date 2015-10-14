@@ -1,4 +1,4 @@
-package com.wanlitong.jmetrics.compactor;
+package com.wanlitong.jmetrics.task.compactor;
 
 import org.springframework.stereotype.Component;
 

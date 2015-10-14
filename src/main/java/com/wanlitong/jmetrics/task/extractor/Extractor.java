@@ -1,4 +1,4 @@
-package com.wanlitong.jmetrics.extractor;
+package com.wanlitong.jmetrics.task.extractor;
 
 import org.springframework.stereotype.Component;
 

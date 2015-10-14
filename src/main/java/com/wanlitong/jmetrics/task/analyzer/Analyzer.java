@@ -1,4 +1,4 @@
-package com.wanlitong.jmetrics.analyzer;
+package com.wanlitong.jmetrics.task.analyzer;
 
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
