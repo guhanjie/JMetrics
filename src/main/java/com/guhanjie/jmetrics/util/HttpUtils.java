@@ -1,4 +1,4 @@
-package com.wanlitong.jmetrics.util;
+package com.guhanjie.jmetrics.util;
 
 import java.io.BufferedReader;
 import java.io.IOException;

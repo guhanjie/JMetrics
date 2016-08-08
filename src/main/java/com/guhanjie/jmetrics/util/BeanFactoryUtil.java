@@ -1,4 +1,4 @@
-package com.wanlitong.jmetrics.util;
+package com.guhanjie.jmetrics.util;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;

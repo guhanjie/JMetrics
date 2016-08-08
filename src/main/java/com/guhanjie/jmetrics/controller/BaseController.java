@@ -1,4 +1,4 @@
-package com.wanlitong.jmetrics.controller;
+package com.guhanjie.jmetrics.controller;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.wanlitong.jmetrics.exception.WebException;
-import com.wanlitong.jmetrics.exception.WebExceptionEnum;
+import com.guhanjie.jmetrics.exception.WebException;
+import com.guhanjie.jmetrics.exception.WebExceptionEnum;
 
 public abstract class BaseController {
 

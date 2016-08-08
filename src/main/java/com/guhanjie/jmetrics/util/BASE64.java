@@ -1,4 +1,4 @@
-package com.wanlitong.jmetrics.util;
+package com.guhanjie.jmetrics.util;
 
 import org.apache.commons.codec.binary.Base64;
 

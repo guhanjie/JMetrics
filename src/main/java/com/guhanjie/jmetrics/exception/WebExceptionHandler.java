@@ -1,4 +1,4 @@
-package com.wanlitong.jmetrics.exception;
+package com.guhanjie.jmetrics.exception;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.wanlitong.jmetrics.util.HttpUtils;
+import com.guhanjie.jmetrics.util.HttpUtils;
 
 public class WebExceptionHandler implements HandlerExceptionResolver {
 	

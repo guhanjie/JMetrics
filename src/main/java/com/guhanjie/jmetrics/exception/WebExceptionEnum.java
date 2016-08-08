@@ -1,4 +1,4 @@
-package com.wanlitong.jmetrics.exception;
+package com.guhanjie.jmetrics.exception;
 
 import java.util.HashMap;
 import java.util.Map;

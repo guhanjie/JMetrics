@@ -9,7 +9,7 @@
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd">
 
 	<context:property-placeholder location="classpath:default.properties" ignore-resource-not-found="true" file-encoding="utf-8" />
-	<context:component-scan base-package="com.wanlitong.jmetrics.controller" />		
+	<context:component-scan base-package="com.guhanjie.jmetrics.controller" />		
 	<mvc:default-servlet-handler />
 	<mvc:resources location="classpath:/resources/" mapping="/resources/**" />
 	
@@ -35,7 +35,7 @@
 					p:cookiePath="/"
 					p:defaultLocale="zh_CN"/>
 
-	<bean id="exceptionResolver" class="com.wanlitong.jmetrics.exception.WebExceptionHandler" />
+	<bean id="exceptionResolver" class="com.guhanjie.jmetrics.exception.WebExceptionHandler" />
 	
     <!-- <mvc:interceptors>
         <mvc:interceptor>
