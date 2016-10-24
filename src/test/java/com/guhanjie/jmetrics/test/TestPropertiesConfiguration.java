@@ -22,7 +22,7 @@ import org.apache.commons.configuration.PropertiesConfiguration;
  * @version			1.0.0 
  * @since 			JDK 1.7 
  */
-public class Main2 {
+public class TestPropertiesConfiguration {
 	/**
 	 * Method Name:	main<br/>
 	 * Description:			[description]
