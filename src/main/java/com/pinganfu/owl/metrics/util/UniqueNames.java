@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package com.pinganfu.owl.metrics.lib;
+package com.pinganfu.owl.metrics.util;
 
 import java.util.Map;
 
@@ -31,7 +31,7 @@ import org.apache.hadoop.classification.InterfaceAudience;
 @InterfaceAudience.Private
 public class UniqueNames {
 
-  static class Count {
+  private static class Count {
     final String baseName;
     int value;
 
@@ -41,9 +41,9 @@ public class UniqueNames {
     }
   }
 
-  static final Joiner joiner = Joiner.on('-');
-  final Map<String, Count> map = Maps.newHashMap();
-
+  private static final Joiner joiner = Joiner.on('-');
+  private final Map<String, Count> map = Maps.newHashMap();
+  
   public synchronized String uniqueName(String name) {
     Count c = map.get(name);
     if (c == null) {
@@ -62,5 +62,16 @@ public class UniqueNames {
       // handle collisons, assume to be rare cases,
       // eg: people explicitly passed in name-\d+ names.
     } while (true);
+  }  
+  
+  public boolean contains(String name) {
+	  return map.containsKey(name);
+  }
+
+  public void clear() {
+	  map.clear();;
+  }
+  public void remove(String name) {
+	  map.remove(name);
   }
 }

@@ -29,24 +29,24 @@ import com.pinganfu.owl.metrics.MetricsException;
 public enum DefaultMetricsFactory {
   INSTANCE; // the singleton
 
-  private MutableMetricsFactory mmfImpl;
+  private MutableMetricFactory mmfImpl;
 
-  public static MutableMetricsFactory getAnnotatedMetricsFactory() {
-    return INSTANCE.getInstance(MutableMetricsFactory.class);
+  public static MutableMetricFactory getMutableMetricsFactory() {
+    return INSTANCE.getInstance(MutableMetricFactory.class);
   }
 
   @SuppressWarnings("unchecked")
   public synchronized <T> T getInstance(Class<T> cls) {
-    if (cls == MutableMetricsFactory.class) {
+    if (cls == MutableMetricFactory.class) {
       if (mmfImpl == null) {
-        mmfImpl = new MutableMetricsFactory();
+        mmfImpl = new MutableMetricFactory();
       }
       return (T) mmfImpl;
     }
     throw new MetricsException("Unknown metrics factory type: "+ cls.getName());
   }
 
-  public synchronized void setInstance(MutableMetricsFactory factory) {
+  public synchronized void setInstance(MutableMetricFactory factory) {
     mmfImpl = factory;
   }
 }

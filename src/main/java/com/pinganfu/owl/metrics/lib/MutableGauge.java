@@ -34,7 +34,7 @@ public abstract class MutableGauge extends MutableMetric {
   private final MetricsInfo info;
 
   protected MutableGauge(MetricsInfo info) {
-    this.info = checkNotNull(info, "metric info");
+    this.info = checkNotNull(info, "gauge info");
   }
 
   protected MetricsInfo info() {

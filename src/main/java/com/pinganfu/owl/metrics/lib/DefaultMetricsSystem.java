@@ -27,6 +27,7 @@ import org.apache.hadoop.classification.InterfaceStability;
 import com.pinganfu.owl.metrics.MetricsException;
 import com.pinganfu.owl.metrics.MetricsSystem;
 import com.pinganfu.owl.metrics.impl.MetricsSystemImpl;
+import com.pinganfu.owl.metrics.util.UniqueNames;
 
 /**
  * The default metrics system singleton
@@ -72,8 +73,8 @@ public enum DefaultMetricsSystem {
   void shutdownInstance() {
     boolean last = impl.get().shutdown();
     if (last) synchronized(this) {
-      mBeanNames.map.clear();
-      sourceNames.map.clear();
+      mBeanNames.clear();
+      sourceNames.clear();
     }
   }
 
@@ -115,7 +116,7 @@ public enum DefaultMetricsSystem {
 
   synchronized ObjectName newObjectName(String name) {
     try {
-      if (mBeanNames.map.containsKey(name) && !miniClusterMode) {
+      if (mBeanNames.contains(name) && !miniClusterMode) {
         throw new MetricsException(name +" already exists!");
       }
       return new ObjectName(mBeanNames.uniqueName(name));
@@ -125,11 +126,11 @@ public enum DefaultMetricsSystem {
   }
 
   synchronized void removeObjectName(String name) {
-    mBeanNames.map.remove(name);
+    mBeanNames.remove(name);
   }
 
   synchronized String newSourceName(String name, boolean dupOK) {
-    if (sourceNames.map.containsKey(name)) {
+    if (sourceNames.contains(name)) {
       if (dupOK) {
         return name;
       } else if (!miniClusterMode) {

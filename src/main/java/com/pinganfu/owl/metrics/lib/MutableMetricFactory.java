@@ -34,8 +34,8 @@ import com.pinganfu.owl.metrics.annotation.Metrics;
 
 @InterfaceAudience.Private
 @InterfaceStability.Evolving
-public class MutableMetricsFactory {
-  private static final Log LOG = LogFactory.getLog(MutableMetricsFactory.class);
+public class MutableMetricFactory {
+  private static final Log LOG = LogFactory.getLog(MutableMetricFactory.class);
 
   MutableMetric newForField(Field field, Metric annotation,
                             MetricsRegistry registry) {

@@ -36,11 +36,11 @@ public class MetricsAnnotations {
    */
   public static MetricsSource makeSource(Object source) {
     return new MetricsSourceBuilder4Annotation(source,
-        DefaultMetricsFactory.getAnnotatedMetricsFactory()).build();
+        DefaultMetricsFactory.getMutableMetricsFactory()).build();
   }
 
   public static MetricsSourceBuilder4Annotation newSourceBuilder(Object source) {
     return new MetricsSourceBuilder4Annotation(source,
-        DefaultMetricsFactory.getAnnotatedMetricsFactory());
+        DefaultMetricsFactory.getMutableMetricsFactory());
   }
 }

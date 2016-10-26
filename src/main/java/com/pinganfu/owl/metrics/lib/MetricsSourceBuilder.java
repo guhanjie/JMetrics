@@ -31,8 +31,8 @@ public class MetricsSourceBuilder {
 	private final MetricsRegistry registry;
 
 	public MetricsSourceBuilder(MetricsSystem ms, String context, String sourcename) {
-		checkNotNull(context, "context");
 		checkNotNull(ms, "metrics system");
+		checkNotNull(context, "context");
 		checkNotNull(sourcename, "metrics source name");
 		this.ms = ms;
 		this.context = context;
@@ -41,15 +41,14 @@ public class MetricsSourceBuilder {
 	}
 	
 	public MetricsSource build() {
-		//produce metrics source
+		//build a metrics source from metrics registry
 	    MetricsSource source = new MetricsSource() {
-	    	private MetricsRegistry mr = registry;
 	        @Override
 	        public void getMetrics(MetricsCollector builder, boolean all) {
-	          mr.snapshot(builder.addRecord(info).setContext(context), all);
+	            registry.snapshot(builder.addRecord(info).setContext(context), all);
 	        }
 	    };
-	    //register source into metrics system
+	    //register metrics source into metrics system
 	    ms.register(info.name(), info.description(), source);
 	    return source;
 	}
@@ -69,8 +68,12 @@ public class MetricsSourceBuilder {
 		return registry.newGauge(Interns.info(name, desc), iVal);
 	}
 	
-	public MutableStat newStat(String name, String desc,
-                    								String sampleName, String valueName) {
+	public MutableQuantiles newQuantiles(String name, String desc,
+				      						String sampleName, String valueName, int interval) {
+		return registry.newQuantiles(name, desc, sampleName, valueName, interval);
+	}
+	
+	public MutableStat newStat(String name, String desc, String sampleName, String valueName) {
 		return registry.newStat(name, desc, sampleName, valueName, false);
 	}
 	

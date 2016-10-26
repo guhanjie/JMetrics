@@ -44,13 +44,13 @@ public class MetricsSourceBuilder4Annotation {
   private static final Log LOG = LogFactory.getLog(MetricsSourceBuilder4Annotation.class);
 
   private final Object source;
-  private final MutableMetricsFactory factory;
+  private final MutableMetricFactory factory;
   private final MetricsRegistry registry;
   private MetricsInfo info;
   private boolean hasAtMetric = false;
   private boolean hasRegistry = false;
 
-  MetricsSourceBuilder4Annotation(Object source, MutableMetricsFactory factory) {
+  MetricsSourceBuilder4Annotation(Object source, MutableMetricFactory factory) {
     this.source = checkNotNull(source, "source");
     this.factory = checkNotNull(factory, "mutable metrics factory");
     Class<?> cls = source.getClass();
