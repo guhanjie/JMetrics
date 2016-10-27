@@ -148,14 +148,14 @@ public class MetricsSystemImpl extends MetricsSystem implements MetricsSource {
   @Override
   public synchronized MetricsSystem init(String prefix) {
     if (monitoring && !DefaultMetricsSystem.inMiniClusterMode()) {
-      LOG.warn(this.prefix +" metrics system already initialized!");
+      LOG.warn("["+ this.prefix +"] metrics system already initialized!");
       return this;
     }
     this.prefix = checkNotNull(prefix, "prefix");
     ++refCount;
     if (monitoring) {
       // in mini cluster mode
-      LOG.info(this.prefix +" metrics system started (again)");
+      LOG.info("["+ this.prefix +"] metrics system started (again)");
       return this;
     }
     switch (initMode()) {
@@ -169,7 +169,7 @@ public class MetricsSystemImpl extends MetricsSystem implements MetricsSource {
         }
         break;
       case STANDBY:
-        LOG.info(prefix +" metrics system started in standby mode");
+        LOG.info("["+ prefix +"] metrics system started in standby mode");
     }
     initSystemMBean();
     return this;
@@ -179,7 +179,7 @@ public class MetricsSystemImpl extends MetricsSystem implements MetricsSource {
   public synchronized void start() {
     checkNotNull(prefix, "prefix");
     if (monitoring) {
-      LOG.warn(prefix +" metrics system already started!",
+      LOG.warn("["+ prefix +"] metrics system already started!",
                new MetricsException("Illegal start"));
       return;
     }
@@ -188,7 +188,7 @@ public class MetricsSystemImpl extends MetricsSystem implements MetricsSource {
     configure(prefix);
     startTimer();
     monitoring = true;
-    LOG.info(prefix +" metrics system started");
+    LOG.info("["+ prefix +"] metrics system started");
     for (Callback cb : callbacks) cb.postStart();
     for (Callback cb : namedCallbacks.values()) cb.postStart();
   }
@@ -196,24 +196,24 @@ public class MetricsSystemImpl extends MetricsSystem implements MetricsSource {
   @Override
   public synchronized void stop() {
     if (!monitoring && !DefaultMetricsSystem.inMiniClusterMode()) {
-      LOG.warn(prefix +" metrics system not yet started!",
+      LOG.warn("["+ prefix +"] metrics system not yet started!",
                new MetricsException("Illegal stop"));
       return;
     }
     if (!monitoring) {
       // in mini cluster mode
-      LOG.info(prefix +" metrics system stopped (again)");
+      LOG.info("["+ prefix +"] metrics system stopped (again)");
       return;
     }
     for (Callback cb : callbacks) cb.preStop();
     for (Callback cb : namedCallbacks.values()) cb.preStop();
-    LOG.info("Stopping "+ prefix +" metrics system...");
+    LOG.info("Stopping ["+ prefix +"] metrics system...");
     stopTimer();
     stopSources();
     stopSinks();
     clearConfigs();
     monitoring = false;
-    LOG.info(prefix +" metrics system stopped.");
+    LOG.info("["+ prefix +"] metrics system stopped.");
     for (Callback cb : callbacks) cb.postStop();
     for (Callback cb : namedCallbacks.values()) cb.postStop();
   }
@@ -228,7 +228,7 @@ public class MetricsSystemImpl extends MetricsSystem implements MetricsSource {
     final String finalName = // be friendly to non-metrics tests
         DefaultMetricsSystem.sourceName(name2, !monitoring);
     allSources.put(finalName, s);
-    LOG.debug(finalName +", "+ finalDesc);
+    LOG.debug("registering source: "+finalName +", "+ finalDesc);
     if (monitoring) {
       registerSource(finalName, finalDesc, s);
     }
@@ -272,9 +272,9 @@ public class MetricsSystemImpl extends MetricsSystem implements MetricsSource {
 
   @Override public synchronized <T extends MetricsSink>
   T register(final String name, final String description, final T sink) {
-    LOG.debug(name +", "+ description);
+    LOG.debug("registering sink: "+name +", "+ description);
     if (allSinks.containsKey(name)) {
-      LOG.warn("Sink "+ name +" already exists!");
+      LOG.warn("Sink ["+ name +"] already exists!");
       return sink;
     }
     allSinks.put(name, sink);
@@ -357,7 +357,7 @@ public class MetricsSystemImpl extends MetricsSystem implements MetricsSource {
 
   private synchronized void startTimer() {
     if (timer != null) {
-      LOG.warn(prefix +" metrics system timer already started!");
+      LOG.warn("["+ prefix +"] metrics system timer already started!");
       return;
     }
     logicalTime = 0;
@@ -379,7 +379,7 @@ public class MetricsSystemImpl extends MetricsSystem implements MetricsSource {
   synchronized void onTimerEvent() {
     logicalTime += period;
     if (sinks.size() > 0) {
-      publishMetrics(sampleMetrics(), false);
+      publishMetrics(sampleMetrics(), false);		//pick up metrics, and put out
     }
   }
   
@@ -389,12 +389,13 @@ public class MetricsSystemImpl extends MetricsSystem implements MetricsSource {
   @Override
   public synchronized void publishMetricsNow() {
     if (sinks.size() > 0) {
-      publishMetrics(sampleMetrics(), true);
+      publishMetrics(sampleMetrics(), true);		//pick up metrics, and put out
     }    
   }
 
   /**
    * Sample all the sources for a snapshot of metrics/tags
+   * ###pick up the metrics###
    * @return  the metrics buffer containing the snapshot
    */
   @VisibleForTesting
@@ -425,6 +426,7 @@ public class MetricsSystemImpl extends MetricsSystem implements MetricsSource {
 
   /**
    * Publish a metrics snapshot to all the sinks
+   * ###put out the metrics###
    * @param buffer  the metrics snapshot to publish
    * @param immediate  indicates that we should publish metrics immediately
    *                   instead of using a separate thread.
@@ -447,7 +449,7 @@ public class MetricsSystemImpl extends MetricsSystem implements MetricsSource {
 
   private synchronized void stopTimer() {
     if (timer == null) {
-      LOG.warn(prefix +" metrics system timer already stopped!");
+      LOG.warn("["+ prefix +"] metrics system timer already stopped!");
       return;
     }
     timer.cancel();
@@ -603,7 +605,7 @@ public class MetricsSystemImpl extends MetricsSystem implements MetricsSource {
       MBeans.unregister(mbeanName);
       mbeanName = null;
     }
-    LOG.info(prefix +" metrics system shutdown complete.");
+    LOG.info("["+ prefix +"] metrics system shutdown complete.");
     return true;
   }
 

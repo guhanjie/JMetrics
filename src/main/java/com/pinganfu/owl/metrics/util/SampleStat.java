@@ -21,7 +21,7 @@ package com.pinganfu.owl.metrics.util;
 import org.apache.hadoop.classification.InterfaceAudience;
 
 /**
- * Helper to compute running sample stats
+ * Helper to compute running sample statistics
  */
 @InterfaceAudience.Private
 public class SampleStat {

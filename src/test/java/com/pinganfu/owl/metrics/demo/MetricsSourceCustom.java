@@ -80,7 +80,7 @@ public class MetricsSourceCustom implements MetricsSource {
 	@Override
 	public void getMetrics(MetricsCollector collector, boolean all) {
 		MetricsRecordBuilder rb = collector.addRecord(registry.info()).setContext(this.context);
-		registry.snapshot(rb, true);
+		registry.snapshot(rb, all);
 	}
 
 	public MetricsSourceCustom registerWith(MetricsSystem ms) {
