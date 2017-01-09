@@ -40,7 +40,6 @@ import com.pinganfu.owl.metrics.MetricsSource;
 import com.pinganfu.owl.metrics.MetricsSystem;
 import com.pinganfu.owl.metrics.lib.DefaultMetricsSystem;
 import com.pinganfu.owl.metrics.lib.Interns;
-import com.pinganfu.owl.metrics.plugin.LogEventCounter;
 import com.pinganfu.owl.metrics.source.JvmPauseMonitor;
 
 /**
@@ -100,7 +99,7 @@ public class JvmMetrics implements MetricsSource {
     getMemoryUsage(rb);
     getGcUsage(rb);
     getThreadUsage(rb);
-    getEventCounters(rb);
+    //getEventCounters(rb);
   }
 
   private void getMemoryUsage(MetricsRecordBuilder rb) {
@@ -182,10 +181,10 @@ public class JvmMetrics implements MetricsSource {
       .addGauge(ThreadsTerminated, threadsTerminated);
   }
 
-  private void getEventCounters(MetricsRecordBuilder rb) {
-    rb.addCounter(LogFatal, LogEventCounter.getFatal())
-      .addCounter(LogError, LogEventCounter.getError())
-      .addCounter(LogWarn, LogEventCounter.getWarn())
-      .addCounter(LogInfo, LogEventCounter.getInfo());
-  }
+//  private void getEventCounters(MetricsRecordBuilder rb) {
+//    rb.addCounter(LogFatal, LogEventCounter.getFatal())
+//      .addCounter(LogError, LogEventCounter.getError())
+//      .addCounter(LogWarn, LogEventCounter.getWarn())
+//      .addCounter(LogInfo, LogEventCounter.getInfo());
+//  }
 }

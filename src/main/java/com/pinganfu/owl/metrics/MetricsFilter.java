@@ -49,6 +49,8 @@ public abstract class MetricsFilter implements MetricsPlugin {
    */
   public abstract boolean accepts(Iterable<MetricsTag> tags);
 
+  public abstract boolean acceptsContext(MetricsRecord record);
+  
   /**
    * Whether to accept the record
    * @param record  to filter on
@@ -56,6 +58,6 @@ public abstract class MetricsFilter implements MetricsPlugin {
    */
   public boolean accepts(MetricsRecord record) {
     return accepts(record.name()) && accepts(record.tags());
-  }
+  }  
 
 }

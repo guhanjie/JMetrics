@@ -3,7 +3,7 @@
  * Package Name: jmetric
  * File Name: MyComponentSink.java
  * Create Date: 2016年8月1日 下午2:43:42
- * Copyright (c) 2008-2016, 平安集团-平安万里通 All Rights Reserved.
+ * Copyright (c) 2008-2016, 平安集团-平安付 All Rights Reserved.
  */
 package com.pinganfu.owl.metrics.demo;
 

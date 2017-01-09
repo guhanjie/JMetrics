@@ -3,7 +3,7 @@
  * Package Name:	org.apache.hadoop.metrics2.util 
  * File Name:			DNS.java 
  * Create Date:		2016年10月9日 下午2:22:47 
- * Copyright (c) 2008-2016, 平安集团-平安万里通 All Rights Reserved.
+ * Copyright (c) 2008-2016, 平安集团-平安付 All Rights Reserved.
  */  
 package com.pinganfu.owl.metrics.util;
 
@@ -126,7 +126,7 @@ public class DNS {
   }
 
   /**
-   * Like {@link DNS#getIPs(String, boolean), but returns all
+   * Like {@link DNS#getIPs(String, boolean)}, but returns all
    * IPs associated with the given interface and its subinterfaces.
    */
   public static String[] getIPs(String strInterface)

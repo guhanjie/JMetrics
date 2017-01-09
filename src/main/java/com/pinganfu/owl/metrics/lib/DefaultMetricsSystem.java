@@ -45,11 +45,11 @@ public enum DefaultMetricsSystem {
 
   /**
    * Convenience method to initialize the metrics system
-   * @param prefix  for the metrics system configuration
+   * @param confFile complete file or just prefix for the metrics system configuration
    * @return the metrics system instance
    */
-  public static MetricsSystem initialize(String prefix) {
-    return INSTANCE.init(prefix);
+  public static MetricsSystem initialize(String confFile) {
+    return INSTANCE.init(confFile);
   }
 
   MetricsSystem init(String prefix) {

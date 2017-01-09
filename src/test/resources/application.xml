@@ -1,0 +1,39 @@
+<!-- Application context definition. -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+	
+	<!-- Enable extract metrics by using @annotation in your code -->
+	<import resource="classpath:owl.metrics-aop.xml" />	
+	
+	<!-- Definition of aop aspect for auto extracting metrics(which used when you want without injection in your code), only timeconsumed aspect can use currently.-->
+	<!-- <aop:config proxy-target-class="true"> 
+		<aop:aspect id="timeconsumedAspect" ref="metricsAspect"> 
+			<aop:around method="timeconsumed" pointcut="execution(* com.pinganfu.owl.metrics.demo..*(..))" /> 
+		</aop:aspect> 
+	</aop:config> -->
+	
+	<!-- Definition of metrics source bean -->
+	<bean id="annotationSource" class="com.pinganfu.owl.metrics.demo.MetricsSourceAnnotation" />
+	<bean id="customSource1" class="com.pinganfu.owl.metrics.demo.MetricsSourceCustom1" />
+	
+	<!-- Definition of metrics system singleton bean -->
+	<bean id="metricsSystem" class="com.pinganfu.owl.metrics.spring.MetricsSystemFactoryBean">
+		<property name="context" value="test" />
+		<property name="enableJVM" value="true" />
+		<property name="metricsSources">
+		  <map>
+		      <entry key ="AnnotationSource" value-ref="annotationSource"/>
+		      <entry key ="CustomSource1" value-ref="customSource1"/>
+		  </map>
+		</property>
+	</bean>
+	
+	<context:component-scan base-package="com.pinganfu.owl.metrics.demo" />
+	
+</beans>

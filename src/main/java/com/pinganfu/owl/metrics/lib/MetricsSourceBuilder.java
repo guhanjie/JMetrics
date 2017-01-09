@@ -3,7 +3,7 @@
  * Package Name:	com.pinganfu.owl.metrics.lib 
  * File Name:			MetricsSourceBuilder.java 
  * Create Date:		2016年10月10日 下午12:22:18 
- * Copyright (c) 2008-2016, 平安集团-平安万里通 All Rights Reserved.
+ * Copyright (c) 2008-2016, 平安集团-平安付 All Rights Reserved.
  */  
 package com.pinganfu.owl.metrics.lib;
 
@@ -18,7 +18,7 @@ import com.pinganfu.owl.metrics.MetricsTag;
 /**
  * Class Name:		MetricsSourceBuilder<br/>
  * Description:		[description]
- * @time				2016年10月10日 下午12:22:18
+ * Time:					2016年10月10日 下午12:22:18
  * @author			GUHANJIE
  * @version			1.0.0 
  * @since 			JDK 1.7 
@@ -80,6 +80,10 @@ public class MetricsSourceBuilder {
 	
 	public MutableRate newRate(String name, String description) {
 		return registry.newRate(name, description, false);
+	}
+	
+	public MutableRate newRate(String name, String description, boolean extended) {
+		return registry.newRate(name, description, extended);
 	}
 	
 	public MetricsRegistry tag(String name, String description, String value) {

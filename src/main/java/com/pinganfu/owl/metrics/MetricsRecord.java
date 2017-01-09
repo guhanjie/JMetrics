@@ -18,6 +18,7 @@
 
 package com.pinganfu.owl.metrics;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 import org.apache.hadoop.classification.InterfaceAudience;
@@ -28,7 +29,7 @@ import org.apache.hadoop.classification.InterfaceStability;
  */
 @InterfaceAudience.Public
 @InterfaceStability.Evolving
-public interface MetricsRecord {
+public interface MetricsRecord extends Serializable {
   /**
    * Get the timestamp of the metrics
    * @return  the timestamp

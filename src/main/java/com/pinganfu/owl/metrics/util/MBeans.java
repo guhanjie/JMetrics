@@ -88,7 +88,9 @@ public class MBeans {
 
   static private ObjectName getMBeanName(String serviceName, String nameName) {
     ObjectName name = null;
-    String nameStr = "Hadoop:service="+ serviceName +",name="+ nameName;
+    serviceName = serviceName.replaceAll(":", "");
+    nameName = nameName.replaceAll(":", "");
+    String nameStr = "OWL-metrics:service="+ serviceName +",name="+ nameName;
     try {
       name = DefaultMetricsSystem.newMBeanName(nameStr);
     } catch (Exception e) {

@@ -516,6 +516,7 @@ public class MetricsSystemImpl extends MetricsSystem implements MetricsSource {
   static MetricsSinkAdapter newSink(String name, String desc, MetricsSink sink,
                                     MetricsConfig conf) {
     return new MetricsSinkAdapter(name, desc, sink, conf.getString(CONTEXT_KEY),
+        conf.getFilter(CONTEXT_FILTER_KEY),
         conf.getFilter(SOURCE_FILTER_KEY),
         conf.getFilter(RECORD_FILTER_KEY),
         conf.getFilter(METRIC_FILTER_KEY),

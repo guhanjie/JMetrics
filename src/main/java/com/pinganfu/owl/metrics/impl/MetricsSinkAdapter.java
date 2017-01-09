@@ -45,7 +45,7 @@ class MetricsSinkAdapter implements SinkQueue.Consumer<MetricsBuffer> {
   private final Log LOG = LogFactory.getLog(MetricsSinkAdapter.class);
   private final String name, description, context;
   private final MetricsSink sink;
-  private final MetricsFilter sourceFilter, recordFilter, metricFilter;
+  private final MetricsFilter contextFilter, sourceFilter, recordFilter, metricFilter;
   private final SinkQueue<MetricsBuffer> queue;
   private final Thread sinkThread;
   private volatile boolean stopping = false;
@@ -59,7 +59,7 @@ class MetricsSinkAdapter implements SinkQueue.Consumer<MetricsBuffer> {
   private final MutableGaugeInt qsize;
 
   MetricsSinkAdapter(String name, String description, MetricsSink sink,
-                     String context, MetricsFilter sourceFilter,
+                     String context, MetricsFilter contextFilter, MetricsFilter sourceFilter,
                      MetricsFilter recordFilter, MetricsFilter metricFilter,
                      int period, int queueCapacity, int retryDelay,
                      float retryBackoff, int retryCount) {
@@ -67,6 +67,7 @@ class MetricsSinkAdapter implements SinkQueue.Consumer<MetricsBuffer> {
     this.description = description;
     this.sink = checkNotNull(sink, "sink object");
     this.context = context;
+    this.contextFilter = contextFilter;
     this.sourceFilter = sourceFilter;
     this.recordFilter = recordFilter;
     this.metricFilter = metricFilter;
@@ -177,16 +178,18 @@ class MetricsSinkAdapter implements SinkQueue.Consumer<MetricsBuffer> {
     for (MetricsBuffer.Entry entry : buffer) {
       if (sourceFilter == null || sourceFilter.accepts(entry.name())) {
         for (MetricsRecordImpl record : entry.records()) {
-          if ((context == null || context.equals(record.context())) &&
-              (recordFilter == null || recordFilter.accepts(record))) {
-            if (LOG.isDebugEnabled()) {
-              LOG.debug("Pushing record "+ entry.name() +"."+ record.context() +
-                        "."+ record.name() +" to "+ name);
+          if (context == null || (context != null && context.equals(record.context())) || 
+        	  (contextFilter!=null && contextFilter.acceptsContext(record))) {
+            if(recordFilter == null || recordFilter.accepts(record)) {
+	            if (LOG.isDebugEnabled()) {
+	              LOG.debug("Pushing record "+ entry.name() +"."+ record.context() +
+	                        "."+ record.name() +" to "+ name);
+	            }
+	            sink.putMetrics(metricFilter == null
+	                ? record
+	                : new MetricsRecordFiltered(record, metricFilter));
+	            if (ts == 0) ts = record.timestamp();
             }
-            sink.putMetrics(metricFilter == null
-                ? record
-                : new MetricsRecordFiltered(record, metricFilter));
-            if (ts == 0) ts = record.timestamp();
           }
         }
       }

@@ -17,6 +17,9 @@
  */
 package com.pinganfu.owl.metrics;
 
+/**
+ * Metric common type: COUNTER, GAUGE
+ */
 public enum MetricType {
   /**
    * A monotonically increasing metric that can be used

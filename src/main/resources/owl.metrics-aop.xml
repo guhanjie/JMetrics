@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<!-- <aop:config proxy-target-class="true"> 
+		<aop:aspect id="timeconsumedAspect" ref="metricsAspect"> 
+			<aop:around method="timeconsumed" pointcut="@annotation(com.pinganfu.owl.metrics.annotation.TimeConsumed)" /> 
+		</aop:aspect> 
+	</aop:config> -->
+		
+	<bean id="metricsAspect" class="com.pinganfu.owl.metrics.aop.TimeConsumedAspect" /> 
+
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+	
+</beans>

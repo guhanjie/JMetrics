@@ -26,7 +26,7 @@ import org.apache.hadoop.classification.InterfaceStability;
  */
 @InterfaceAudience.Public
 @InterfaceStability.Evolving
-public interface MetricsInfo {
+public interface MetricsInfo extends java.io.Serializable {
   /**
    * @return the name of the metric/tag
    */

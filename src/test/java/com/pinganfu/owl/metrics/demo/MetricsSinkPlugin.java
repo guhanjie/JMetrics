@@ -3,7 +3,7 @@
  * Package Name:	jmetric 
  * File Name:			EchoPlugin.java 
  * Create Date:		2016年8月1日 上午11:07:43 
- * Copyright (c) 2008-2016, 平安集团-平安万里通 All Rights Reserved.
+ * Copyright (c) 2008-2016, 平安集团-平安付 All Rights Reserved.
  */  
 package com.pinganfu.owl.metrics.demo;
 

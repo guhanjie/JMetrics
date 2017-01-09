@@ -80,6 +80,12 @@ public class SampleStat {
    */
   public SampleStat add(long nSamples, double x) {
     numSamples += nSamples;
+    
+    //reset if numSamples overflow
+    if(numSamples < 0) {
+    	reset();
+    	return add(nSamples, x);
+    }
 
     if (numSamples == 1) {
       a0 = a1 = x;

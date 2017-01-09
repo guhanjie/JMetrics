@@ -3,14 +3,14 @@
  * Package Name:	com.pinganfu.owl.metrics.util 
  * File Name:			IPAddressUtil.java 
  * Create Date:		2016年10月10日 下午4:07:25 
- * Copyright (c) 2008-2016, 平安集团-平安万里通 All Rights Reserved.
+ * Copyright (c) 2008-2016, 平安集团-平安付 All Rights Reserved.
  */  
 package com.pinganfu.owl.metrics.util;
 
 /**
  * Class Name:		IPAddressUtil<br/>
  * Description:		[description]
- * @time				2016年10月10日 下午4:07:25
+ * Time:					2016年10月10日 下午4:07:25
  * @author			GUHANJIE
  * @version			1.0.0 
  * @since 			JDK 1.7 

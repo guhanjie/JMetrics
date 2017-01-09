@@ -3,7 +3,7 @@
  * Package Name:	org.apache.hadoop.metrics2.util 
  * File Name:			ReflectionUtils.java 
  * Create Date:		2016年10月9日 下午2:16:56 
- * Copyright (c) 2008-2016, 平安集团-平安万里通 All Rights Reserved.
+ * Copyright (c) 2008-2016, 平安集团-平安付 All Rights Reserved.
  */  
 package com.pinganfu.owl.metrics.util;
 

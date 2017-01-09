@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+
+  <Properties>
+    <Property name="filename">${sys:user.home}/wls/wls81/monitor.log</Property>
+  </Properties>
+  
+  <Appenders>
+    <Console name="Console" target="SYSTEM_OUT">
+      <PatternLayout pattern="%d{HH:mm:ss.SSS} [%p] [%t] - [%c{1}.%M():%L] %m%n"/>
+    </Console>
+    <File name="File" fileName="${filename}">
+      <PatternLayout>
+        <pattern>%d %p %C{1.} [%t] %m%n</pattern>
+      </PatternLayout>
+    </File>
+    <!-- <Appender type="OwlLog4j2Appender" name="owl"  owlStoreDir="${filename}">
+    </Appender> -->
+  </Appenders>
+  
+  <Loggers>
+    <Root level="info">
+      <AppenderRef ref="Console"/>
+      <AppenderRef ref="File"/>
+      <!-- <AppenderRef ref="OwlLog4j2Appender"/> -->
+    </Root>
+  </Loggers>
+</Configuration>

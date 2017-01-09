@@ -22,10 +22,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.net.URL;
 import java.net.URLClassLoader;
+
 import static java.security.AccessController.*;
 import java.security.PrivilegedAction;
 import java.util.Iterator;
-import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -77,6 +77,7 @@ class MetricsConfig extends SubsetConfiguration {
   static final String DESC_KEY = "description";
   static final String SOURCE_KEY = "source";
   static final String SINK_KEY = "sink";
+  static final String CONTEXT_FILTER_KEY = "context.filter";
   static final String METRIC_FILTER_KEY = "metric.filter";
   static final String RECORD_FILTER_KEY = "record.filter";
   static final String SOURCE_FILTER_KEY = "source.filter";
@@ -89,9 +90,21 @@ class MetricsConfig extends SubsetConfiguration {
     super(c, StringUtils.toLowerCase(prefix), ".");
   }
 
-  static MetricsConfig create(String prefix) {
-    return loadFirst(prefix, "owl-metrics-" +
-        StringUtils.toLowerCase(prefix) + ".properties", DEFAULT_FILE_NAME);
+  static MetricsConfig create(String confFile) {
+	String prefix = "";
+	String file = confFile;
+	// if confFile is absolute file
+	Pattern pattern = Pattern.compile(".*owl-metrics-(.*)\\.properties", Pattern.DOTALL);
+	Matcher m = pattern.matcher(confFile);
+	if(m.matches()) {
+		prefix = m.group(1);
+	}
+	// else confFile is just a prefix, here we spell it up to file
+	else {
+		prefix = confFile;
+		file = "owl-metrics-" + StringUtils.toLowerCase(prefix) + ".properties";
+	}
+    return loadFirst(prefix, file, DEFAULT_FILE_NAME);
   }
 
   static MetricsConfig create(String prefix, String... fileNames) {
@@ -112,11 +125,15 @@ class MetricsConfig extends SubsetConfiguration {
         LOG.info("loaded properties from "+ fname);
         LOG.debug(toString(cf));
         MetricsConfig mc = new MetricsConfig(cf, prefix);
+        if(mc.isEmpty()) {
+        	mc = new MetricsConfig(cf, "*");
+        }
         LOG.debug(mc);
         return mc;
       }
       catch (ConfigurationException e) {
         if (e.getMessage().startsWith("Cannot locate configuration")) {
+          LOG.warn(e.getMessage());
           continue;
         }
         throw new MetricsConfigException(e);
@@ -257,6 +274,33 @@ class MetricsConfig extends SubsetConfiguration {
   MetricsFilter getFilter(String prefix) {
     // don't create filter instances without out options
     MetricsConfig conf = subset(prefix);
+    
+    // do some specified process for context filter
+    if(prefix.equals(CONTEXT_FILTER_KEY)) {
+    	String[] contexts = getStringArray(CONTEXT_KEY);
+    	if(contexts!=null){
+			StringBuilder sb = new StringBuilder();
+    		if(contexts.length==1) {
+    			if("*".equals(contexts[0])) {
+    				sb.append(".*");
+    			}
+    			else if(contexts[0].contains("*") || contexts[0].contains("|")) {
+    				sb.append(contexts[0]);
+    			}
+    		}
+    		else if(contexts.length > 1) {
+    			for(String str : contexts) {
+    				sb.append(str).append("|");
+    			}
+    			sb.deleteCharAt(sb.length()-1);
+    		}
+    		if(sb.length() > 0) {
+    			String context = sb.toString();
+    			conf.addProperty("included", context);
+    		}
+    	}
+    }
+    
     if (conf.isEmpty()) return null;
     MetricsFilter filter = getPlugin(prefix);
     if (filter != null) return filter;

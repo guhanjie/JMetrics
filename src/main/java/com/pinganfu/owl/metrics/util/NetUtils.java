@@ -3,7 +3,7 @@
  * Package Name:	org.apache.hadoop.metrics2.util 
  * File Name:			NetUtils.java 
  * Create Date:		2016年10月9日 下午2:26:45 
- * Copyright (c) 2008-2016, 平安集团-平安万里通 All Rights Reserved.
+ * Copyright (c) 2008-2016, 平安集团-平安付 All Rights Reserved.
  */  
 package com.pinganfu.owl.metrics.util;
 
@@ -300,6 +300,12 @@ public class NetUtils {
     catch(UnknownHostException uhe) {return "" + uhe;}
   }
   
+  public static String getHostAddress() {
+	    try {return InetAddress.getLocalHost().getHostAddress();}
+	    catch(UnknownHostException uhe) {return "" + uhe;}
+	  }
+  
+  
   /**
    * Compose a "host:port" string from the address.
    */
@@ -465,7 +471,7 @@ public class NetUtils {
    * Return a free port number. There is no guarantee it will remain free, so
    * it should be used immediately.
    *
-   * @returns A free port for binding a local socket
+   * @return A free port for binding a local socket
    */
   public static int getFreeSocketPort() {
     int port = 0;

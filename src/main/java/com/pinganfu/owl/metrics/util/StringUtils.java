@@ -3,7 +3,7 @@
  * Package Name:	org.apache.hadoop.metrics2.util 
  * File Name:			StringUtils.java 
  * Create Date:		2016年10月9日 下午1:50:25 
- * Copyright (c) 2008-2016, 平安集团-平安万里通 All Rights Reserved.
+ * Copyright (c) 2008-2016, 平安集团-平安付 All Rights Reserved.
  */  
 package com.pinganfu.owl.metrics.util;
 
@@ -316,7 +316,7 @@ public class StringUtils {
 	  /**
 	   * Trims all the strings in a Collection<String> and returns a Set<String>.
 	   * @param strings
-	   * @return
+	   * @return set of string
 	   */
 	  public static Set<String> getTrimmedStrings(Collection<String> strings) {
 	    Set<String> trimmedStrings = new HashSet<String>();

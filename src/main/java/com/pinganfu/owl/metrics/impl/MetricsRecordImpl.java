@@ -27,7 +27,7 @@ import com.pinganfu.owl.metrics.MetricsTag;
 import static com.google.common.base.Preconditions.*;
 import static com.pinganfu.owl.metrics.util.Contracts.*;
 
-class MetricsRecordImpl extends AbstractMetricsRecord {
+public class MetricsRecordImpl extends AbstractMetricsRecord {
   protected static final String DEFAULT_CONTEXT = "default";
 
   private final long timestamp;
